@@ -27,3 +27,15 @@ export const formatValue = (value) => Intl.NumberFormat('en-US', {
   maximumSignificantDigits: 3,
   notation: 'compact',
 }).format(value);
+
+
+export function formatDateToMMDDYY(timestamp) {
+  const date = new Date(timestamp * 1000); // Convert timestamp to milliseconds
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+
+  return formattedDate;
+}
+
+
+

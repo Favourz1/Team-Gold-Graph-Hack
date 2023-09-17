@@ -19,7 +19,8 @@ import DashboardCard10 from '../partials/dashboard/DashboardCard10';
 import DashboardCard11 from '../partials/dashboard/DashboardCard11';
 import DashboardCard12 from '../partials/dashboard/DashboardCard12';
 import DashboardCard13 from '../partials/dashboard/DashboardCard13';
-import Banner from '../partials/Banner';
+import ApprovalCard from "../partials/dashboard/ApprovalsCard"
+// import Banner from '../partials/Banner';
 
 function Dashboard() {
 
@@ -68,13 +69,13 @@ function Dashboard() {
 
             {/* Cards */}
             <div className="grid grid-cols-12 gap-6">
-
               {/* Line chart (Acme Plus) */}
               <DashboardCard01 />
               {/* Line chart (Acme Advanced) */}
               <DashboardCard02 />
               {/* Line chart (Acme Professional) */}
               <DashboardCard03 />
+              <ApprovalCard/>
               {/* Bar chart (Direct vs Indirect) */}
               <DashboardCard04 />
               {/* Line chart (Real Time Value) */}
@@ -101,7 +102,7 @@ function Dashboard() {
           </div>
         </main>
 
-        <Banner />
+        {/* <Banner /> */}
 
       </div>
     </div>
