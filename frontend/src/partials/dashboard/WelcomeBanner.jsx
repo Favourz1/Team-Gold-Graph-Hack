@@ -1,6 +1,19 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 
 function WelcomeBanner() {
+  const [greetingText, setGreetingText] = useState('');
+  useEffect(()=>{
+    const time = new Date().getHours()
+    if (time >= 0 && time < 11) {
+      setGreetingText("Good Morning")
+    } else if (time >= 11 && time <= 17) {
+      setGreetingText("Good Afternoon")
+    } else if (time > 17 && time <= 24) {
+      setGreetingText("Good Evening")
+    } else {
+      setGreetingText("Good Day")
+    }
+  })
   return (
     <div className="relative bg-indigo-200 dark:bg-indigo-500 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
       {/* Background illustration */}
@@ -47,8 +60,8 @@ function WelcomeBanner() {
 
       {/* Content */}
       <div className="relative">
-        <h1 className="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">Good afternoon, Acme Inc. 👋</h1>
-        <p className="dark:text-indigo-200">Here is what’s happening with your projects today:</p>
+        <h1 className="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">{greetingText} 👋</h1>
+        <p className="dark:text-indigo-200 max-w-[50%]">Welcome to team Gold's project for the hackathon hosted by web3_warri and sponsored by graph protocol</p>
       </div>
     </div>
   );
