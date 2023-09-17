@@ -7,7 +7,7 @@ import EditMenu from '../../components/DropdownEditMenu';
 // Import utilities
 import { tailwindConfig, hexToRGB } from '../../utils/Utils';
 
-function DashboardCard01() {
+function DashboardCard01({approvedTransactions}) {
 
   const chartData = {
     labels: [
@@ -73,13 +73,13 @@ function DashboardCard01() {
   };
 
   return (
-    <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
+    <div className="flex flex-col justify-between col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
       <div className="px-5 pt-5">
         <header className="flex justify-between items-start mb-2">
           {/* Icon */}
           <img src={Icon} width="32" height="32" alt="Icon 01" />
           {/* Menu button */}
-          <EditMenu align="right" className="relative inline-flex">
+          {/* <EditMenu align="right" className="relative inline-flex">
             <li>
               <Link className="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex py-1 px-3" to="#0">
                 Option 1
@@ -95,13 +95,13 @@ function DashboardCard01() {
                 Remove
               </Link>
             </li>
-          </EditMenu>
+          </EditMenu> */}
         </header>
-        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Acme Plus</h2>
-        <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1">Sales</div>
+        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Total Approved Transactions</h2>
+        <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1"></div>
         <div className="flex items-start">
-          <div className="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">$24,780</div>
-          <div className="text-sm font-semibold text-white px-1.5 bg-emerald-500 rounded-full">+49%</div>
+          <div className="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">{approvedTransactions}</div>
+          <div className="text-sm font-semibold text-white px-1.5 bg-emerald-500 rounded-full">+20%</div>
         </div>
       </div>
       {/* Chart built with Chart.js 3 */}

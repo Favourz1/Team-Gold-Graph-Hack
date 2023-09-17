@@ -62,7 +62,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
         }`}
       >
         {/* Sidebar header */}
-        <div className="flex justify-between mb-10 pr-3 sm:px-2">
+        <div className={`flex justify-between items-center mb-10 pr-3 sm:px-2 transition-all ${!sidebarExpanded ? 'flex-col' : ''}`}>
           {/* Close button */}
           <button
             ref={trigger}
@@ -101,6 +101,18 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               />
             </svg>
           </NavLink>
+          {/* Expand / collapse button */}
+        <div className="pt-3 hidden lg:inline-flex 2xl:hidden justify-end mt-auto">
+          <div className="px-3 py-2">
+            <button onClick={() => setSidebarExpanded(!sidebarExpanded)}>
+              <span className="sr-only">Expand / collapse sidebar</span>
+              <svg className="w-6 h-6 fill-current sidebar-expanded:rotate-180" viewBox="0 0 24 24">
+                <path className="text-slate-400" d="M19.586 11l-5-5L16 4.586 23.414 12 16 19.414 14.586 18l5-5H7v-2z" />
+                <path className="text-slate-600" d="M3 23H1V1h2z" />
+              </svg>
+            </button>
+          </div>
+        </div>
         </div>
 
         {/* Links */}
@@ -111,7 +123,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               <span className="hidden lg:block lg:sidebar-expanded:hidden 2xl:hidden text-center w-6" aria-hidden="true">
                 •••
               </span>
-              <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">Pages</span>
+              <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">Link</span>
             </h3>
             <ul className="mt-3">
               <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('calendar') && 'bg-slate-900'}`}>
@@ -155,18 +167,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           
         </div>
 
-        {/* Expand / collapse button */}
-        <div className="pt-3 hidden lg:inline-flex 2xl:hidden justify-end mt-auto">
-          <div className="px-3 py-2">
-            <button onClick={() => setSidebarExpanded(!sidebarExpanded)}>
-              <span className="sr-only">Expand / collapse sidebar</span>
-              <svg className="w-6 h-6 fill-current sidebar-expanded:rotate-180" viewBox="0 0 24 24">
-                <path className="text-slate-400" d="M19.586 11l-5-5L16 4.586 23.414 12 16 19.414 14.586 18l5-5H7v-2z" />
-                <path className="text-slate-600" d="M3 23H1V1h2z" />
-              </svg>
-            </button>
-          </div>
-        </div>
+        
       </div>
     </div>
   );

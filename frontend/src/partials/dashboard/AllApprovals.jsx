@@ -1,10 +1,10 @@
 import React,{useEffect, useState} from 'react';
 import {formatDateToMMDDYY} from "../../utils/Utils"
 
-function DashboardCard07({setmostActiveBlockNumber}) {
+function DashboardCard07({setApprovedTransactions}) {
     const [numberOfApprovals, setNumberOfApprovals] = useState(5);
     const [approvals, setApprovals] = useState([]);
-    const [approvalsHeader, setApprovalsHeader] = useState(["tokenId","owner","approved","blockNumber", "transactionHash", "blockTimestamp"]);
+    const [approvalsHeader, setApprovalsHeader] = useState(["blockNumber","owner", "approved", "operator", "transactionHash", "blockTimestamp"]);
 
 
 
@@ -18,14 +18,14 @@ function DashboardCard07({setmostActiveBlockNumber}) {
         const requestBody = {
             query: `
             query {
-                approvals(first: ${numberOfApprovals}) {
-                id
-                owner
-                approved
-                tokenId
-                blockTimestamp
-                blockNumber
-                transactionHash
+                approvalForAlls(first: ${numberOfApprovals}) {
+                    id
+                    owner
+                    operator
+                    approved
+                    blockTimestamp
+                    blockNumber
+                    transactionHash
                 }
             }
             `,
@@ -47,37 +47,12 @@ function DashboardCard07({setmostActiveBlockNumber}) {
             if (data.errors) {
                 throw new Error(`GraphQL errors data.error: ${data.errors}`);
             } else {
-                setApprovals(data.data.approvals) 
+                setApprovals(data.data.approvalForAlls)
             }
         } catch (error) {
             console.error('GraphQL fetch error:', error);
         }
     }
-
-    function findMostActiveBlockNumber(arr){
-        const blockNumberCounts = {};
-          arr.forEach(item => {
-              const blockNumber = item.blockNumber;
-              if (blockNumberCounts[blockNumber]) {
-                blockNumberCounts[blockNumber]++;
-              } else {
-                blockNumberCounts[blockNumber] = 1;
-              }
-            });
-
-            // Find the blockNumber with the highest count
-            let mostFrequentBlockNumber = null;
-            let highestCount = 0;
-
-            for (const blockNumber in blockNumberCounts) {
-              if (blockNumberCounts[blockNumber] > highestCount) {
-                highestCount = blockNumberCounts[blockNumber];
-                mostFrequentBlockNumber = blockNumber;
-              }
-            }
-
-            return mostFrequentBlockNumber;
-          }
 
 
     useEffect(()=>{
@@ -85,12 +60,13 @@ function DashboardCard07({setmostActiveBlockNumber}) {
         
     },[numberOfApprovals])
     useEffect(()=>{
-        setmostActiveBlockNumber(findMostActiveBlockNumber(approvals))
+        setApprovedTransactions(approvals.length) 
+        
     },[approvals])
   return (
     <div className="col-span-full  bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
       <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
-        <h2 className="font-semibold text-slate-800 dark:text-slate-100">Transactions Awaiting Approval</h2>
+        <h2 className="font-semibold text-slate-800 dark:text-slate-100">All Approved Transactions</h2>
       </header>
       <div className="p-3">
         {/* Table */}
@@ -100,7 +76,7 @@ function DashboardCard07({setmostActiveBlockNumber}) {
             <thead className="text-xs uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50 rounded-sm">
               <tr>
                 <th className="p-2">
-                  <div className="font-semibold text-left">Token ID</div>
+                  <div className="font-semibold text-left">BlockNumber</div>
                 </th>
                 <th className="p-2">
                   <div className="font-semibold text-center">Owner</div>
@@ -109,7 +85,7 @@ function DashboardCard07({setmostActiveBlockNumber}) {
                   <div className="font-semibold text-center">Approved</div>
                 </th>
                 <th className="p-2">
-                  <div className="font-semibold text-center">BlockNumber</div>
+                  <div className="font-semibold text-center">Operator</div>
                 </th>
                 <th className="p-2">
                   <div className="font-semibold text-center">Transaction Hash</div>
@@ -127,12 +103,9 @@ function DashboardCard07({setmostActiveBlockNumber}) {
                         <tr key={item.key}>
                         {approvalsHeader.map((key) => (
                             <td className="p-2" key={key}>
-                            {key === "tokenId" ? (
+                            {key === "approved" ? (
                                 <div className="flex items-center">
-                                <svg width="25px" height="25px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="m 8 1 c -1.65625 0 -3 1.34375 -3 3 s 1.34375 3 3 3 s 3 -1.34375 3 -3 s -1.34375 -3 -3 -3 z m -1.5 7 c -2.492188 0 -4.5 2.007812 -4.5 4.5 v 0.5 c 0 1.109375 0.890625 2 2 2 h 8 c 1.109375 0 2 -0.890625 2 -2 v -0.5 c 0 -2.492188 -2.007812 -4.5 -4.5 -4.5 z m 0 0" fill="#2e3436" />
-                                </svg>
-                                <div className="text-slate-800 dark:text-slate-100">{item[key]}</div>
+                                <div className="text-slate-800 dark:text-slate-100">{item[key] ? 'Yes' : 'No'}</div>
                                 </div>
                             ) : key === "blockTimestamp" ?(
                                 <div className="text-center p-2 whitespace-nowrap">{formatDateToMMDDYY(item[key])}</div>

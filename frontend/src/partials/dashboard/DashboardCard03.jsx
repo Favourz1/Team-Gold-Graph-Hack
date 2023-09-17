@@ -72,7 +72,7 @@ function DashboardCard03() {
           {/* Icon */}
           <img src={Icon} width="32" height="32" alt="Icon 03" />
           {/* Menu button */}
-          <EditMenu align="right" className="relative inline-flex">
+          {/* <EditMenu align="right" className="relative inline-flex">
             <li>
               <Link className="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex py-1 px-3" to="#0">
                 Option 1
@@ -88,13 +88,13 @@ function DashboardCard03() {
                 Remove
               </Link>
             </li>
-          </EditMenu>
+          </EditMenu> */}
         </header>
-        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Acme Professional</h2>
-        <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1">Sales</div>
+        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Transfers</h2>
+        <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1"></div>
         <div className="flex items-start">
-          <div className="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">$9,962</div>
-          <div className="text-sm font-semibold text-white px-1.5 bg-emerald-500 rounded-full">+49%</div>
+          <div className="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">34</div>
+          <div className="text-sm font-semibold text-white px-1.5 bg-emerald-500 rounded-full">+9%</div>
         </div>
       </div>
       {/* Chart built with Chart.js 3 */}
